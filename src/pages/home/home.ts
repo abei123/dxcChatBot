@@ -19,8 +19,8 @@ export class HomePage {
     birthDate: ''
   };
   avatarSrc : any = "http://placecorgi.com/300/300?index=random";
-  //patientUrl : any = "http://52.163.246.246:8810/Patient";
-  patientUrl : any = "/Patient";
+  patientUrl : any = "http://52.163.246.246:8810/Patient";
+  //patientUrl : any = "/Patient";
 
   constructor(public navCtrl: NavController,
   public http: Http,
