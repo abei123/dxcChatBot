@@ -1,0 +1,14 @@
+{
+  "name": "dxcChatBot",
+  "app_id": "",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  },
+  "proxies": [
+    {
+      "path": "/Patient",
+      "proxyUrl": "http://52.163.246.246:8810/Patient"
+    }
+  ]
+}
