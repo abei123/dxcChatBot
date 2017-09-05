@@ -12,8 +12,8 @@ import { PatientModel } from '../../models/patient.model';
   templateUrl: 'login.html'
 })
 export class LoginPage {
-  patientUrl : any = "http://52.163.246.246:8810/Patient";
-  //patientUrl : any = "/Patient";
+  //patientUrl : any = "http://52.163.246.246:8810/Patient";
+  patientUrl : any = "/Patient";
 
   patientId : any;
 

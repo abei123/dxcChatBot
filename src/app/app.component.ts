@@ -28,7 +28,7 @@ export class MyApp {
       { title: 'Home', component: HomePage },
       { title: 'Logout', component: LoginPage },
       //{ title: 'List', component: ListPage },
-      { title: 'Appointment', component: ChatPage },
+      //{ title: 'Appointment', component: ChatPage },
       { title: 'Vital Signs', component: ChatVitalPage },
       { title: 'ChatBot', component: Chat2Page }
     ];

@@ -1,19 +1,17 @@
 <ion-content padding>
-  <div class="spacer" style="height:100px;" id="page-spacer2"></div>
+  <ion-list inset>
+    <ion-item *ngIf="!loginValid && submitAttempt">
+      <p>Patient ID does not exist!</p>
+    </ion-item>
 
-  <ion-item *ngIf="!loginValid && submitAttempt">
-    <p>Patient ID does not exist!</p>
-  </ion-item>
+    <ion-item>
+      <ion-label>Patient Id</ion-label>
+      <ion-input type="text" placeholder="Patient ID" [(ngModel)]="patientId" [ngModelOptions]="{standalone: true}"></ion-input>
+    </ion-item>
 
-  <form id="page-form2">
-    <form id="page-form3">
-      <ion-item id="page-input5">
-        <ion-input type="text" placeholder="Patient ID" [(ngModel)]="patientId" [ngModelOptions]="{standalone: true}"></ion-input>
-      </ion-item>
-    </form>
-  </form>
-  <button id="page-button1" ion-button color="dark" block style="color:#FFE700;" (click)="login()">
-    Login
-  </button>
-  <div class="spacer" style="height:100px;" id="page-spacer3"></div>
+  </ion-list>
+
+  <p>
+    <button ion-button color="primary" full outline (click)="login()">Login</button>
+  </p>
 </ion-content>

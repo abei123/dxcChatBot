@@ -7,7 +7,7 @@
 <ion-content>
 <ion-list>
     <ion-item *ngFor="let _message of messages">
-      {{_message}}
+      <pre>{{_message}}</pre>
     </ion-item>
 </ion-list>
 </ion-content>
@@ -19,6 +19,7 @@
     </ion-item>
     <ion-item>
       <button ion-button (click)="sendMessage()">Send</button>
+      <button ion-button (click)="resetMessage()">Reset</button>
     </ion-item>
   </ion-list>
 </ion-footer>

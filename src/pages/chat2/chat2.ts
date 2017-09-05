@@ -63,12 +63,11 @@ export class Chat2Page {
 
               this.messages.push('How may i help you, ' + val );
 
-              this.finishedLoading = true;
-
               this.storage.get('patientId').then((val) => {
                 this.patientId = val;
-                console.log(val);
                 this.postToChatBot(val);
+
+                this.finishedLoading = true;
               });
             });
         };
@@ -84,16 +83,13 @@ export class Chat2Page {
                 return;
               }
 
-              if(data.watermark <= 2){
-                return;
-              }
-
               data.activities.forEach( activity => {
-                if (activity.text) {
+                if(activity.type === "endOfConversation"){
+                  this.ionViewDidLoad();
+                  return;
+                }else if (activity.text) {
                     this.messages.push(activity.text);
-                }
-
-                if (activity.attachments) {
+                }else if (activity.attachments) {
                     activity.attachments.forEach( attachment => {
                         console.log(attachment);
                         switch (attachment.contentType) {
@@ -114,7 +110,7 @@ export class Chat2Page {
                         }
                     });
                 }
-              });
+            });
           }
         };
 
@@ -131,7 +127,6 @@ export class Chat2Page {
   }
 
   sendMessage() {
-    this.content.scrollToBottom();
     if(!this.finishedLoading) {
       this.messages.push('Please wait, chat loading!');
       this.message = '';
@@ -140,27 +135,19 @@ export class Chat2Page {
     this.storage.get('patientId').then((val) => {
       this.patientId = val;
 
-      console.log(this.message);
       this.messages.push(this.message);
 
-      let headers = new Headers();
-      headers.append("Content-Type", 'application/json');
-      headers.append("Authorization", 'Bearer ' + 'TViGZib394o.cwA.9gk.WG84I5TwVoWVXolXPn9D_P9jmt3dDydQzWmok8vmovY');
+      this.postToChatBot(this.message);
 
-      let data = {
-        "type": "message",
-        "from": {
-            "id": this.patientId
-        },
-        "text": this.message
-      };
-
-      this.http.post('https://directline.botframework.com/v3/directline/conversations/'+ this.conversionId +'/activities',data,{ headers: headers }).map(res => res.json()).subscribe(data => {
-          //console.log(data);
-      }, error => {
-        console.log(error);
-      });
       this.message = '';
+      this.content.scrollToBottom();
     });
+  }
+
+  resetMessage() {
+    this.postToChatBot('reset');
+
+    this.messages = new Array();
+    this.content.scrollToBottom();
   }
 }
