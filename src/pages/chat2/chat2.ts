@@ -4,6 +4,8 @@ import { Http, Headers} from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Storage } from '@ionic/storage';
 
+import { URL } from '../../constant/constant';
+
 @Component({
   selector: 'page-chat2',
   templateUrl: 'chat2.html'
@@ -36,7 +38,7 @@ export class Chat2Page {
       "text": message
     };
 
-    this.http.post('https://directline.botframework.com/v3/directline/conversations/'+ this.conversionId +'/activities',data,{ headers: headers }).map(res => res.json()).subscribe(data => {
+    this.http.post(URL.conversationUrl + '/' + this.conversionId +'/activities',data,{ headers: headers }).map(res => res.json()).subscribe(data => {
        console.log(data);
     }, error => {
       console.log(error);
@@ -49,10 +51,7 @@ export class Chat2Page {
     headers.append("Content-Type", 'application/x-www-form-urlencoded');
     headers.append("Authorization", 'Bearer ' + 'TViGZib394o.cwA.9gk.WG84I5TwVoWVXolXPn9D_P9jmt3dDydQzWmok8vmovY');
 
-    this.http.post('https://directline.botframework.com/v3/directline/conversations',null,{ headers: headers }).map(res => res.json()).subscribe(data => {
-        console.log(data.conversationId);
-        console.log(data.streamUrl);
-
+    this.http.post(URL.conversationUrl,null,{ headers: headers }).map(res => res.json()).subscribe(data => {
         this.conversionId = data.conversationId;
         this.ws = new WebSocket(data.streamUrl);
 
@@ -76,8 +75,6 @@ export class Chat2Page {
 
           if (typeof e.data === 'string' && e.data.length > 0) {
               var data = JSON.parse(e.data);
-
-              console.log(data);
 
               if(data.activities[0].from.id === this.patientId){
                 return;
@@ -145,9 +142,6 @@ export class Chat2Page {
   }
 
   resetMessage() {
-    this.postToChatBot('reset');
-
-    this.messages = new Array();
-    this.content.scrollToBottom();
+    this.ionViewDidLoad();
   }
 }
